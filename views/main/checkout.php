@@ -49,7 +49,7 @@ $this->title = 'Pay';
                     </div>
                     <div class="mb-3">
                         <label for="country">Country:</label>
-                        <select class="form-select mt-3">
+                        <select class="form-select mt-3" id="country_id">
                             <option value="">Please Select Country</option>
                             <?php
                                 foreach($country_data as $item){
@@ -86,16 +86,36 @@ $this->title = 'Pay';
     "showMethod": "fadeIn",
     "hideMethod": "fadeOut"
     }
+    $(":input").change(function(){
+        var name = $(this).attr("name");
+        var value = $(this).val();
+        localStorage.setItem(name, value);
+    });
+    $("select").change(function(){
+        var name = "country_id";
+        var value = $(this).val();
+        localStorage.setItem(name, value);
+    });
     $(document).ready(function(){
         var firstName = localStorage.getItem('first_name');
+        var last_name = localStorage.getItem('last_name');
         var email = localStorage.getItem('email');
+        var phone = localStorage.getItem('phone');
+        var street1 = localStorage.getItem('street1');
+        var street2 = localStorage.getItem('street2');
+        var zip = localStorage.getItem('zip');
+        var city = localStorage.getItem('city');
+        var country_id = localStorage.getItem('country_id');
         $("#firstName").val(firstName);
+        $("#lastName").val(last_name);
         $("#email").val(email);
+        $("#phone").val(phone);
+        $("#street1").val(street1);
+        $("#street2").val(street2);
+        $("#zip").val(zip);
+        $("#city").val(city);
+        $("#country_id").val(country_id);
     });
-    $(":input").keypress(function(){
-        console.log($(this).attr("id"));
-        console.log($(this).val());
-    })
     $("#buyNow").click(function(){
         var firstName = $("#firstName").val();
         var lastName = $("#lastName").val();
@@ -108,19 +128,9 @@ $this->title = 'Pay';
         var country = $( "select option:selected" ).val();
         var orderId = localStorage.getItem("order_id");
         var lang = "en-EN";
-        var payment_method = "PayPal";
         if( orderId == null || orderId == ""){
             orderId = "";
         }
-        localStorage.setItem("first_name", firstName);
-        localStorage.setItem("last_name", lastName);
-        localStorage.setItem("email", email);
-        localStorage.setItem("phone", phone);
-        localStorage.setItem("street1", street1);
-        localStorage.setItem("street2", street2);
-        localStorage.setItem("zip", zip);
-        localStorage.setItem("city", city);
-        localStorage.setItem("country", country);
         $.ajax({
             url: "",
             method: "POST",
@@ -137,10 +147,8 @@ $this->title = 'Pay';
                 country: country,
                 order_id: orderId,
                 lang: lang,
-                payment_method: payment_method
             },
             success: function(res){
-                console.log(res);
                 var res_data = JSON.parse(res);
                 if(res_data["status"] == "success"){
                     localStorage.clear();

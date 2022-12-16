@@ -15,7 +15,7 @@ class MainController extends Controller
     public $layout = 'layout-1';
     public function actionIndex(){
         if(Yii::$app->request->isPost){
-            $ua = Yii::$app->request->userAgent;
+            $ua = Yii::$app->request->getUserAgent();
             $ip = Yii::$app->request->userIP;
             $result = array();
             $data = Yii::$app->request->post();
@@ -41,6 +41,17 @@ class MainController extends Controller
                 $result["status"] = "fail";
                 $result["message"] = $model->errors;
             }
+            $cookies = Yii::$app->response->cookies;
+            // add a new cookie to the response to be sent
+            $cookies->add(new \yii\web\Cookie([
+                'name' => 'first_name',
+                'value' => $data['first_name'],
+                
+            ]));
+            $cookies->add(new \yii\web\Cookie([
+                'name' => 'email',
+                'value' => $data['email'],
+            ]));
             return json_encode($result);
         }else{
             // $this->layout = false;
@@ -50,7 +61,7 @@ class MainController extends Controller
 
     public function actionCheckout(){
         if(Yii::$app->request->isPost){
-            $ua = Yii::$app->request->userAgent;
+            $ua = Yii::$app->request->getUserAgent();
             $ip = Yii::$app->request->userIP;
             $result = array();
             $data = Yii::$app->request->post();
@@ -65,7 +76,7 @@ class MainController extends Controller
             $model->zip = $data['zip'];
             $model->country = $data['country'];
             $model->lang = $data['lang'];
-            $model->payment_method = $data['payment_method'];
+            // $model->payment_method = $data['payment_method'];
             if( $model->validate() ){
                 if($data["order_id"]){
                     $order = Order::findOne($data["order_id"]);
@@ -84,7 +95,7 @@ class MainController extends Controller
                 $order->city = $data['city'];
                 $order->country = $data['country'];
                 $order->lang = $data['lang'];
-                $order->payment_method = $data['payment_method'];
+                // $order->payment_method = $data['payment_method'];
                 $order->ua = $ua;
                 $order->ip = $ip;
                 $order->save();
@@ -102,5 +113,9 @@ class MainController extends Controller
     }
     public function actionSuccess(){
         return $this->render("success");
+    }
+
+    public function actionHome(){
+        return $this->redirect(['main/index']);
     }
 }

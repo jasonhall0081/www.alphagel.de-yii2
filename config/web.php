@@ -7,7 +7,6 @@ $config = [
     'id' => 'basic',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
-    'defaultRoute' => 'main',
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset',
@@ -16,8 +15,6 @@ $config = [
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'b_OBWIyY6Lu9OiQqjBBta6IsBGAqiiqE',
-            'baseUrl' => ''
-
         ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
@@ -27,7 +24,7 @@ $config = [
             'enableAutoLogin' => true,
         ],
         'errorHandler' => [
-            // 'errorAction' => 'site/error',
+            'errorAction' => 'site/error',
         ],
         'mailer' => [
             'class' => \yii\symfonymailer\Mailer::class,
@@ -50,9 +47,14 @@ $config = [
             'showScriptName' => false,
             'enablePrettyUrl' => true,
             'rules' => array(
-                '<controller:\w+>/<id:\d+>' => '<controller>/view',
-                '<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',
-                '<controller:\w+>/<action:\w+>' => '<controller>/<action>',
+                '' => 'main/home',
+                '/main' => 'main/home',
+                '/main/index' => 'main/index',
+                '/main/checkout' => 'main/checkout',
+                '/main/success' => 'main/success',
+                // '<controller:\w+>/<id:\d+>' => '<controller>/view',
+                // '<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',
+                // '<controller:\w+>/<action:\w+>' => '<controller>/<action>',
             ),
         ],
     ],

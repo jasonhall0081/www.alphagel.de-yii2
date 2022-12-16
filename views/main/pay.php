@@ -48,7 +48,12 @@ $this->title = 'Pay';
     "hideEasing": "linear",
     "showMethod": "fadeIn",
     "hideMethod": "fadeOut"
-    }
+    };
+    $(":input").change(function(){
+        var name = $(this).attr("name");
+        var value = $(this).val();
+        localStorage.setItem(name, value);
+    });
     $("#buyNow").click(function(){
         var firstName = $("#firstName").val();
         var email = $("#email").val();
@@ -57,14 +62,12 @@ $this->title = 'Pay';
             orderId = "";
         }
         $.ajax({
-            url: "",
+            url: "/main/index",
             method: "POST",
             data: { _csrf: csrfToken, first_name: firstName, email: email, order_id: orderId},
             success: function(res){
                 var res_data = JSON.parse(res);
                 if(res_data["status"] == "success"){
-                    document.cookie = "first_name=" + firstName;
-                    document.cookie = "email=" + email;
                     localStorage.setItem("first_name", firstName);
                     localStorage.setItem("email", email);
                     localStorage.setItem("order_id", res_data["order_id"]);
@@ -77,9 +80,15 @@ $this->title = 'Pay';
                 }
             },
             error: function(res){
-                toastr["warning"]("Server Interval Error");
+                toastr["warning"]("Something went wrong!");
             }
         })
+    });
+    $(document).ready(function(){
+        var firstName = localStorage.getItem('first_name');
+        var email = localStorage.getItem('email');
+        $("#firstName").val(firstName);
+        $("#email").val(email);
     });
     </script>
 
