@@ -19,8 +19,10 @@ class AppAsset extends AssetBundle
 {
     public $basePath = '@webroot';
     public $baseUrl = '@web';
+    public $sourcePath = '@app/module/admin/web';
     public $css = [
         'css/site.css',
+        'plugin/toastr/toastr.css'
     ];
     public $js = [
     ];
