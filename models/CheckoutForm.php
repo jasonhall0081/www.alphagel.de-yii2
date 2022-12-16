@@ -2,6 +2,7 @@
 
 namespace app\models;
 use yii\base\Model;
+use floor12\phone\PhoneValidator;
 
 class CheckoutForm extends Model
 {
@@ -23,10 +24,10 @@ class CheckoutForm extends Model
     public function rules()
     {
         return [
-            // first_name, email, and body are required
             [['first_name', 'last_name', 'email', 'phone', 'street1', 'street2', 'zip', 'city', 'country', 'lang', 'payment_method'], 'required'],
-            // email has to be a valid email address
+            [['first_name', 'last_name', 'email', 'phone', 'street1', 'street2', 'zip', 'city', 'country', 'lang', 'payment_method'], 'string', 'max'=>255],
             ['email', 'email'],
+            ['phone', PhoneValidator::class]
         ];
     }
 }
