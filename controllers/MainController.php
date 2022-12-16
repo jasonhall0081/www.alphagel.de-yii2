@@ -75,7 +75,7 @@ class MainController extends Controller
                 $order->date = new Expression('NOW()');
                 $order->order_status = "WaitingApproval";
                 $order->first_name = $data['first_name'];
-                $order->last_name = $data['first_name'];
+                $order->last_name = $data['last_name'];
                 $order->email = $data['email'];
                 $order->phone = $data['phone'];
                 $order->street1 = $data['street1'];
