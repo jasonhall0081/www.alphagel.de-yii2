@@ -49,7 +49,7 @@ $this->title = 'Pay';
                     </div>
                     <div class="mb-3">
                         <label for="country">Country:</label>
-                        <select class="form-select">
+                        <select class="form-select mt-3">
                             <option value="">Please Select Country</option>
                             <?php
                                 foreach($country_data as $item){
