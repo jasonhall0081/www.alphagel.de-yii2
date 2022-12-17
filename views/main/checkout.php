@@ -152,7 +152,7 @@ $this->title = 'Pay';
                 var res_data = JSON.parse(res);
                 if(res_data["status"] == "success"){
                     localStorage.clear();
-                    window.location = '/main/success'
+                    window.location = '/success.html'
                 }else{
                     var messages = res_data["message"];
                     for( var key in messages){

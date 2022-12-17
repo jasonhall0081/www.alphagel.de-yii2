@@ -4,7 +4,7 @@
 
 use yii\helpers\Html;
 
-$this->title = 'Pay';
+$this->title = 'Success';
 ?>
 <div class="container mt-3">
     <div class="row">

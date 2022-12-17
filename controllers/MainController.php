@@ -13,6 +13,20 @@ use \yii\db\Expression;
 class MainController extends Controller
 {
     public $layout = 'layout-1';
+
+    public function actions()
+    {
+        return [
+            'error' => [
+                'class' => 'yii\web\ErrorAction',
+            ],
+            'captcha' => [
+                'class' => 'yii\captcha\CaptchaAction',
+                'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
+            ],
+        ];
+    }
+
     public function actionIndex(){
         if(Yii::$app->request->isPost){
             $ua = Yii::$app->request->getUserAgent();
@@ -116,6 +130,6 @@ class MainController extends Controller
     }
 
     public function actionHome(){
-        return $this->redirect(['main/index']);
+        return $this->redirect("/index.html");
     }
 }

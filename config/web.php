@@ -24,7 +24,7 @@ $config = [
             'enableAutoLogin' => true,
         ],
         'errorHandler' => [
-            'errorAction' => 'site/error',
+            'errorAction' => 'main/error',
         ],
         'mailer' => [
             'class' => \yii\symfonymailer\Mailer::class,
@@ -46,12 +46,25 @@ $config = [
             'class' => 'yii\web\UrlManager',
             'showScriptName' => false,
             'enablePrettyUrl' => true,
+            'enableStrictParsing' => true,
             'rules' => array(
                 '' => 'main/home',
-                '/main' => 'main/home',
-                '/main/index' => 'main/index',
-                '/main/checkout' => 'main/checkout',
-                '/main/success' => 'main/success',
+                '/' => 'main/home',
+                [
+                    'pattern' => 'index',
+                    'route' => 'main/index',
+                    'suffix' => '.html',
+                ],  
+                [
+                    'pattern' => 'checkout',
+                    'route' => 'main/checkout',
+                    'suffix' => '.html',
+                ], 
+                [
+                    'pattern' => 'success',
+                    'route' => 'main/success',
+                    'suffix' => '.html',
+                ],   
                 // '<controller:\w+>/<id:\d+>' => '<controller>/view',
                 // '<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',
                 // '<controller:\w+>/<action:\w+>' => '<controller>/<action>',

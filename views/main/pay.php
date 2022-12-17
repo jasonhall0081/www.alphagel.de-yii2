@@ -62,7 +62,7 @@ $this->title = 'Pay';
             orderId = "";
         }
         $.ajax({
-            url: "/main/index",
+            url: "",
             method: "POST",
             data: { _csrf: csrfToken, first_name: firstName, email: email, order_id: orderId},
             success: function(res){
@@ -71,7 +71,7 @@ $this->title = 'Pay';
                     localStorage.setItem("first_name", firstName);
                     localStorage.setItem("email", email);
                     localStorage.setItem("order_id", res_data["order_id"]);
-                    window.location = '/main/checkout'
+                    window.location = '/checkout.html'
                 }else{
                     var messages = res_data["message"];
                     for( var key in messages){
